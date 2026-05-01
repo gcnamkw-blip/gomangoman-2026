@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>고만고만 — 2026.06.06</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     @import url('<https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap>');
 
@@ -150,20 +151,41 @@
       vertical-align: middle;
     }
 
-    .map-link { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--accent); }
-    .map-link:hover { color: var(--accent); }
-    .map-badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      background: #fff5cc;
-      color: #7a6200;
-      border-radius: 4px;
-      padding: 0.15rem 0.5rem;
-      margin-left: 0.5rem;
-      vertical-align: middle;
-      text-decoration: none;
+    #venue-map {
+      height: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 1.2rem;
+      border: 1px solid var(--border);
     }
-    .map-badge:hover { opacity: 0.8; }
+
+    .map-actions {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 0.75rem;
+    }
+
+    .map-action-btn {
+      flex: 1;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 0.55rem 0;
+      border-radius: 6px;
+      transition: opacity 0.15s;
+    }
+    .map-action-btn:hover { opacity: 0.82; }
+
+    .map-action-btn.naver {
+      background: #03c75a;
+      color: #fff;
+    }
+
+    .map-action-btn.kakao {
+      background: #fee500;
+      color: #3c1e1e;
+    }
 
     .reserve-wrap { text-align: center; margin-top: 2rem; }
 
@@ -205,16 +227,18 @@
       <p class="card-title">공연 정보</p>
       <div class="info-grid">
         <span class="info-key">장소</span>
-        <span class="info-val">
-          <a href="https://map.naver.com/v5/search/카페 글린 양재" target="_blank" rel="noopener" class="map-link"><strong>카페 글린</strong></a> — 서울 양재
-          <a href="https://map.kakao.com/?q=카페+글린+양재" target="_blank" rel="noopener" class="map-badge">카카오맵</a>
-        </span>
+        <span class="info-val"><strong>글린커피</strong> — 서울 강남구 개포로21길 7 1층</span>
         <span class="info-key">입장</span>
         <span class="info-val">16:00</span>
         <span class="info-key">공연</span>
         <span class="info-val">17:00 (약 1시간, 인터미션 없음)</span>
         <span class="info-key">티켓</span>
         <span class="info-val"><strong>30,000원</strong></span>
+      </div>
+      <div id="venue-map"></div>
+      <div class="map-actions">
+        <a href="https://naver.me/FuNEF6Ay" target="_blank" rel="noopener" class="map-action-btn naver">네이버 지도</a>
+        <a href="https://kko.to/q_EFLTNDMK" target="_blank" rel="noopener" class="map-action-btn kakao">카카오맵</a>
       </div>
     </div>
 
@@ -328,11 +352,23 @@
 
   </div>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     function toggle(header) {
       header.classList.toggle('open');
       header.nextElementSibling.classList.toggle('open');
     }
+
+    const map = L.map('venue-map', { zoomControl: false, scrollWheelZoom: false })
+      .setView([37.4793, 127.0591], 16);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    L.marker([37.4793, 127.0591]).addTo(map)
+      .bindPopup('<strong>글린커피</strong><br>개포로21길 7 1층')
+      .openPopup();
   </script>
 </body>
 </html>
