@@ -257,7 +257,23 @@
 
         <div class="performer">
           <div class="performer-header" onclick="toggle(this)">
-            <span class="performer-name">조원석</span>
+            <span class="performer-name">
+              이희문
+              <span class="guest-badge">특별출연</span>
+            </span>
+            <span style="display:flex;align-items:center;gap:0.7rem">
+              <span class="performer-duration">예술감독</span>
+              <span class="chevron">▼</span>
+            </span>
+          </div>
+          <div class="performer-body">
+            <p style="font-size:0.87rem;color:var(--muted);">특별출연 · 예술감독</p>
+          </div>
+        </div>
+
+        <div class="performer">
+          <div class="performer-header" onclick="toggle(this)">
+            <span class="performer-name">1. 조원석</span>
             <span style="display:flex;align-items:center;gap:0.7rem">
               <span class="performer-duration">11′27″</span>
               <span class="chevron">▼</span>
@@ -274,7 +290,7 @@
 
         <div class="performer">
           <div class="performer-header" onclick="toggle(this)">
-            <span class="performer-name">양진수</span>
+            <span class="performer-name">2. 양진수</span>
             <span style="display:flex;align-items:center;gap:0.7rem">
               <span class="performer-duration">10′40″</span>
               <span class="chevron">▼</span>
@@ -290,7 +306,7 @@
 
         <div class="performer">
           <div class="performer-header" onclick="toggle(this)">
-            <span class="performer-name">이채현</span>
+            <span class="performer-name">3. 이채현</span>
             <span style="display:flex;align-items:center;gap:0.7rem">
               <span class="performer-duration">10′50″</span>
               <span class="chevron">▼</span>
@@ -307,7 +323,7 @@
 
         <div class="performer">
           <div class="performer-header" onclick="toggle(this)">
-            <span class="performer-name">남경우</span>
+            <span class="performer-name">4. 남경우</span>
             <span style="display:flex;align-items:center;gap:0.7rem">
               <span class="performer-duration">11′26″</span>
               <span class="chevron">▼</span>
@@ -318,24 +334,6 @@
               <li class="song-item"><span class="song-name">비단타령</span><span class="song-time">5:41</span></li>
               <li class="song-item"><span class="song-name">곰보타령</span><span class="song-time">3:18</span></li>
               <li class="song-item"><span class="song-name">육칠월</span><span class="song-time">2:27</span></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="performer">
-          <div class="performer-header" onclick="toggle(this)">
-            <span class="performer-name">
-              이희문
-              <span class="guest-badge">특별출연</span>
-            </span>
-            <span style="display:flex;align-items:center;gap:0.7rem">
-              <span class="performer-duration">—</span>
-              <span class="chevron">▼</span>
-            </span>
-          </div>
-          <div class="performer-body">
-            <ul class="song-list">
-              <li class="song-item"><span class="song-name">휘모리잡가 완창</span><span class="song-time">—</span></li>
             </ul>
           </div>
         </div>
@@ -360,14 +358,14 @@
     }
 
     const map = L.map('venue-map', { zoomControl: false, scrollWheelZoom: false })
-      .setView([37.4793, 127.0591], 16);
+      .setView([37.4773, 127.0574], 17);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    L.marker([37.4793, 127.0591]).addTo(map)
-      .bindPopup('<strong>글린커피</strong><br>개포로21길 7 1층')
+    L.marker([37.4773, 127.0574]).addTo(map)
+      .bindPopup('<strong>Glyn.</strong><br>개포로21길 7 1층')
       .openPopup();
   </script>
 </body>
