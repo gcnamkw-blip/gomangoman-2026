@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>고만고만 — 2026.06.06</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     @import url('<https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap>');
 
@@ -235,7 +234,7 @@
         <span class="info-key">티켓</span>
         <span class="info-val"><strong>30,000원</strong></span>
       </div>
-      <div id="venue-map"></div>
+      <iframe id="venue-map" src="https://map.kakao.com/link/map/888999193" frameborder="0" allowfullscreen></iframe>
       <div class="map-actions">
         <a href="https://naver.me/FuNEF6Ay" target="_blank" rel="noopener" class="map-action-btn naver">네이버 지도</a>
         <a href="https://kko.to/q_EFLTNDMK" target="_blank" rel="noopener" class="map-action-btn kakao">카카오맵</a>
@@ -350,23 +349,11 @@
 
   </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     function toggle(header) {
       header.classList.toggle('open');
       header.nextElementSibling.classList.toggle('open');
     }
-
-    const map = L.map('venue-map', { zoomControl: false, scrollWheelZoom: false })
-      .setView([37.4773, 127.0574], 17);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-
-    L.marker([37.4773, 127.0574]).addTo(map)
-      .bindPopup('<strong>Glyn.</strong><br>개포로21길 7 1층')
-      .openPopup();
   </script>
 </body>
 </html>
