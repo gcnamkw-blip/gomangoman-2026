@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>고만고만 — 2026.06.06</title>
+  <style>
+    @import url('<https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap>');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f6f1;
+      --surface: #fff;
+      --border: #e0d9ce;
+      --text: #1a1a1a;
+      --muted: #888;
+      --accent: #3d6b4f;
+      --accent-light: #eaf2ec;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container { max-width: 640px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      padding: 3rem 0 2.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(2.4rem, 8vw, 3.6rem);
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+
+    .date-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      padding: 0.4rem 1.2rem;
+      border-radius: 2rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem 1.2rem;
+      align-items: start;
+    }
+
+    .info-key { font-size: 0.78rem; color: var(--muted); white-space: nowrap; padding-top: 0.05em; }
+    .info-val { font-size: 0.92rem; line-height: 1.5; }
+    .info-val strong { font-weight: 500; }
+
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .tl-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tl-item:last-child { border-bottom: none; }
+
+    .tl-time { font-size: 0.82rem; color: var(--accent); font-weight: 500; min-width: 3.5rem; padding-top: 0.1em; }
+    .tl-text { font-size: 0.9rem; line-height: 1.5; }
+
+    .program-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .performer { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+
+    .performer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 1.1rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    .performer-header:hover { background: var(--accent-light); }
+    .performer-header.open { background: var(--accent-light); }
+    .performer-name { font-size: 0.95rem; font-weight: 500; }
+    .performer-duration { font-size: 0.78rem; color: var(--muted); }
+    .chevron { font-size: 0.7rem; color: var(--muted); transition: transform 0.2s; }
+    .performer-header.open .chevron { transform: rotate(180deg); }
+
+    .performer-body {
+      display: none;
+      border-top: 1px solid var(--border);
+      padding: 0.9rem 1.1rem;
+      background: #fafaf8;
+    }
+    .performer-body.open { display: block; }
+
+    .song-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .song-item { display: flex; justify-content: space-between; font-size: 0.87rem; }
+    .song-name { color: var(--text); }
+    .song-time { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+    .guest-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      background: #f3ebe0;
+      color: #8a6a3a;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .reserve-wrap { text-align: center; margin-top: 2rem; }
+
+    .btn-reserve {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      padding: 0.85rem 2.4rem;
+      border-radius: 2rem;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn-reserve:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .reserve-note { margin-top: 0.75rem; font-size: 0.78rem; color: var(--muted); }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <p class="label">고만고만 presents</p>
+      <h1>휘모리잡가</h1>
+      <span class="date-badge">2026. 06. 06 SAT</span>
+    </header>
+
+    <div class="card">
+      <p class="card-title">공연 정보</p>
+      <div class="info-grid">
+        <span class="info-key">장소</span>
+        <span class="info-val"><strong>카페 글린</strong> — 서울 양재</span>
+        <span class="info-key">입장</span>
+        <span class="info-val">16:00</span>
+        <span class="info-key">공연</span>
+        <span class="info-val">17:00 (약 1시간, 인터미션 없음)</span>
+        <span class="info-key">티켓</span>
+        <span class="info-val"><strong>30,000원</strong></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="card-title">당일 일정</p>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-time">16:00</span><span class="tl-text">입장 시작</span></div>
+        <div class="tl-item"><span class="tl-time">17:00</span><span class="tl-text">공연 시작</span></div>
+        <div class="tl-item"><span class="tl-time">~18:00</span><span class="tl-text">공연 종료</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="card-title">프로그램</p>
+      <div class="program-list">
+
+        <div class="performer">
+          <div class="performer-header" onclick="toggle(this)">
+            <span class="performer-name">조원석</span>
+            <span style="display:flex;align-items:center;gap:0.7rem">
+              <span class="performer-duration">11′27″</span>
+              <span class="chevron">▼</span>
+            </span>
+          </div>
+          <div class="performer-body">
+            <ul class="song-list">
+              <li class="song-item"><span class="song-name">장기타령</span><span class="song-time">5:43</span></li>
+              <li class="song-item"><span class="song-name">만학천봉</span><span class="song-time">3:48</span></li>
+              <li class="song-item"><span class="song-name">생매잡아</span><span class="song-time">1:56</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="performer">
+          <div class="performer-header" onclick="toggle(this)">
+            <span class="performer-name">양진수</span>
+            <span style="display:flex;align-items:center;gap:0.7rem">
+              <span class="performer-duration">10′40″</span>
+              <span class="chevron">▼</span>
+            </span>
+          </div>
+          <div class="performer-body">
+            <ul class="song-list">
+              <li class="song-item"><span class="song-name">바위타령</span><span class="song-time">7:42</span></li>
+              <li class="song-item"><span class="song-name">병정타령</span><span class="song-time">2:58</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="performer">
+          <div class="performer-header" onclick="toggle(this)">
+            <span class="performer-name">이채현</span>
+            <span style="display:flex;align-items:center;gap:0.7rem">
+              <span class="performer-duration">10′50″</span>
+              <span class="chevron">▼</span>
+            </span>
+          </div>
+          <div class="performer-body">
+            <ul class="song-list">
+              <li class="song-item"><span class="song-name">맹꽁이타령</span><span class="song-time">6:15</span></li>
+              <li class="song-item"><span class="song-name">기생타령</span><span class="song-time">3:40</span></li>
+              <li class="song-item"><span class="song-name">한잔 부어라</span><span class="song-time">0:55</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="performer">
+          <div class="performer-header" onclick="toggle(this)">
+            <span class="performer-name">남경우</span>
+            <span style="display:flex;align-items:center;gap:0.7rem">
+              <span class="performer-duration">11′26″</span>
+              <span class="chevron">▼</span>
+            </span>
+          </div>
+          <div class="performer-body">
+            <ul class="song-list">
+              <li class="song-item"><span class="song-name">비단타령</span><span class="song-time">5:41</span></li>
+              <li class="song-item"><span class="song-name">곰보타령</span><span class="song-time">3:18</span></li>
+              <li class="song-item"><span class="song-name">육칠월</span><span class="song-time">2:27</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="performer">
+          <div class="performer-header" onclick="toggle(this)">
+            <span class="performer-name">
+              이희문
+              <span class="guest-badge">특별출연</span>
+            </span>
+            <span style="display:flex;align-items:center;gap:0.7rem">
+              <span class="performer-duration">—</span>
+              <span class="chevron">▼</span>
+            </span>
+          </div>
+          <div class="performer-body">
+            <ul class="song-list">
+              <li class="song-item"><span class="song-name">휘모리잡가 완창</span><span class="song-time">—</span></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="reserve-wrap">
+      <a class="btn-reserve" href="#" id="reserve-btn">예약하기</a>
+      <p class="reserve-note">예약 마감 2026년 6월 5일 (금) · 현장 계좌이체 결제</p>
+    </div>
+
+    <footer>고만고만 · gomangoman</footer>
+
+  </div>
+
+  <script>
+    function toggle(header) {
+      header.classList.toggle('open');
+      header.nextElementSibling.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
