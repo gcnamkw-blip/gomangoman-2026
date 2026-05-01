@@ -150,6 +150,21 @@
       vertical-align: middle;
     }
 
+    .map-link { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--accent); }
+    .map-link:hover { color: var(--accent); }
+    .map-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      background: #fff5cc;
+      color: #7a6200;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      text-decoration: none;
+    }
+    .map-badge:hover { opacity: 0.8; }
+
     .reserve-wrap { text-align: center; margin-top: 2rem; }
 
     .btn-reserve {
@@ -190,7 +205,10 @@
       <p class="card-title">공연 정보</p>
       <div class="info-grid">
         <span class="info-key">장소</span>
-        <span class="info-val"><strong>카페 글린</strong> — 서울 양재</span>
+        <span class="info-val">
+          <a href="https://map.naver.com/v5/search/카페 글린 양재" target="_blank" rel="noopener" class="map-link"><strong>카페 글린</strong></a> — 서울 양재
+          <a href="https://map.kakao.com/?q=카페+글린+양재" target="_blank" rel="noopener" class="map-badge">카카오맵</a>
+        </span>
         <span class="info-key">입장</span>
         <span class="info-val">16:00</span>
         <span class="info-key">공연</span>
