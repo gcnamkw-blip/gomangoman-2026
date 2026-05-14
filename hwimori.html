@@ -33,7 +33,8 @@ body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; backgroun
 
 /* 원문 */
 .text-block { background: #fff; border-radius: 10px; padding: 16px; margin-bottom: 14px; font-size: 18px; line-height: 2.1; }
-sup.fn { color: #8B2020; font-weight: 700; cursor: pointer; font-size: 11px; vertical-align: super; }
+span.fn { color: #8B2020; border-bottom: 2px solid #e8b4b4; cursor: pointer; display: inline; }
+span.fn sup { font-size: 10px; color: #8B2020; }
 
 /* 해석 */
 .interp-section { margin-bottom: 20px; }
@@ -655,7 +656,7 @@ function renderTabContent(name) {
   if (!currentSong) return;
   if (name === '원문') {
     const html = currentSong.paras.map(p => {
-      const text = p.replace(/<sup>(\d+)<\/sup>/g, '<sup class="fn" data-note="$1" onclick="showNote(this)">$1</sup>');
+      const text = p.replace(/([^\s<>]+)<sup>(\d+)<\/sup>/g, '<span class="fn" data-note="$2" onclick="showNote(this)">$1<sup>$2</sup></span>');
       return `<div class="text-block">${text}</div>`;
     }).join('');
     document.getElementById('tab-원문').innerHTML = html;
