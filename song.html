@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>휘몰이 잡가</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f6f1;
+      --surface: #fff;
+      --border: #e0d9ce;
+      --text: #1a1a1a;
+      --muted: #888;
+      --accent: #3d6b4f;
+      --accent-light: #eaf2ec;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container { max-width: 640px; margin: 0 auto; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .song-header {
+      padding: 2rem 0 2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+
+    .song-meta {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .song-num-title {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .song-num-badge {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.1rem;
+      color: var(--accent);
+      font-weight: 300;
+    }
+
+    h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(2rem, 7vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      line-height: 1.2;
+    }
+
+    .performer-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1.1rem;
+    }
+
+    .desc {
+      font-size: 0.92rem;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .sasul {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.9rem;
+      line-height: 2.1;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+
+    .sasul-puri {
+      font-size: 0.88rem;
+      line-height: 1.9;
+      color: #444;
+    }
+
+    .sasul-puri p { margin-bottom: 0.8rem; }
+
+    .placeholder {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <a href="index.html" class="back-link">← 공연 정보로 돌아가기</a>
+
+    <div class="song-header">
+      <p class="song-meta">휘몰이 잡가</p>
+      <div class="song-num-title">
+        <span class="song-num-badge" id="song-num"></span>
+        <h1 id="song-title"></h1>
+      </div>
+      <span class="performer-tag" id="song-performer"></span>
+    </div>
+
+    <div class="card" id="card-desc">
+      <p class="card-title">곡 소개</p>
+      <p class="desc" id="song-desc"></p>
+    </div>
+
+    <div class="card" id="card-sasul">
+      <p class="card-title">사설</p>
+      <div class="sasul" id="song-sasul"></div>
+    </div>
+
+    <div class="card" id="card-puri">
+      <p class="card-title">사설풀이</p>
+      <div class="sasul-puri" id="song-puri"></div>
+    </div>
+
+    <footer>고만고만 · gomangoman</footer>
+
+  </div>
+
+  <script>
+    const songs = {
+      1: {
+        title: "장기타령",
+        performer: "조원석",
+        time: "5:43",
+        desc: "한국 전통 보드게임 장기(將棋)의 말들을 의인화하여 전장(戰場)의 긴장감과 흥겨움을 노래한 곡. 장(將)·차(車)·포(包)·마(馬)·졸(卒) 등 각 기물의 움직임을 빠른 장단에 맞춰 생생하게 풀어낸다.",
+        sasul: "준비 중입니다.",
+        puri: "준비 중입니다."
+      },
+      2: {
+        title: "만학천봉",
+        performer: "조원석",
+        time: "3:48",
+        desc: "만 개의 골짜기(萬壑)와 천 개의 봉우리(千峯)를 배경으로 펼쳐지는 산수(山水)의 장쾌한 경치를 묘사한 곡. 깊은 산 속 풍경과 자연의 웅장함을 호쾌하게 노래한다.",
+        sasul: "준비 중입니다.",
+        puri: "준비 중입니다."
+      },
+      3: {
+        title: "생매잡아",
+        performer: "조원석",
+        time: "1:56",
+        desc: "살아 있는 매(生鷹)를 잡아 길들이는 매사냥의 과정을 노래한 곡. 매를 잡아 훈련시키고 사냥에 나서는 장면을 역동적으로 묘사한다.",
+        sasul: "준비 중입니다.",
+        puri: "준비 중입니다."
+      },
+      4: {
+        title: "바위타령",
+        performer: "양진수",
+        time: "7:42",
+        desc: "전국 각지의 이름난 바위와 돌의 형상을 나열하며 노래하는 곡. 바위의 모양과 이름을 빠르게 열거하면서 자연의 기이함과 해학을 담아낸다.",
+        sasul: "준비 중입니다.",
+        puri: "준비 중입니다."
+      },
+      5: {
+        title: "병정타령",
+        performer: "양진수",
+        time: "2:58",
+        desc: "군사(兵丁)들의 행진과 훈련 모습을 익살스럽게 묘사한 곡. 군령(軍令)에 맞춰 움직이는 병사들의 모습을 경쾌한 장단에 담아낸다.",
+        sasul: "준비 중입니다.",
+        puri: "준비 중입니다."
+      },
+      6: {
+        title: "맹꽁이타령",
+        performer: "이채현",
+        time: "6:15",
+        desc: "여름 장마철 비 온 뒤 울어대는 맹꽁이 소리를 소재로 한 곡. 맹꽁이를 의인화하여 여름 밤의 정경과 서민의 해학을 생동감 있게 표현한다.",
+        sasul: "준비 중입니다.",
+        puri: "준비 중입니다."
+      },
+      7: {
+        title: "기생타령",
+        performer: "이채현",
+        time: "3:40",
+        desc: "팔도 각지의 기생(妓生)들을 고을 이름과 함께 나열하며 노래하는 곡. 평양·진주·해주·강릉 등 전국 명기(名妓)들을 빠른 장단에 맞춰 읊어 내려간다.",
+        sasul: "준비 중입니다.",
+        puri: "준비 중입니다."
+      },
+      8: {
+        title: "한잔 부어라",
+        performer: "이채현",
+        time: "0:55",
+        desc: "술잔을 권하며 인생의 즐거움을 노래하는 짧고 흥겨운 곡. 잔을 들어 함께 마시자는 권주가(勸酒歌)의 성격을 지닌다.",
+        sasul: "준비 중입니다.",
+        puri: "준비 중입니다."
+      },
+      9: {
+        title: "비단타령",
+        performer: "남경우",
+        time: "5:41",
+        desc: "다양한 종류의 비단(緋緞)과 직물의 이름을 빠르게 열거하며 노래하는 곡. 명주·공단·갑사 등 화려한 직물들을 나열하며 풍요로움과 아름다움을 노래한다.",
+        sasul: "준비 중입니다.",
+        puri: "준비 중입니다."
+      },
+      10: {
+        title: "곰보타령",
+        performer: "남경우",
+        time: "3:18",
+        desc: "얼굴에 마마(천연두) 자국이 남은 이를 익살스럽게 묘사한 곡. 외모의 결점을 해학적으로 풀어내며 조선 서민의 유머 감각을 담고 있다.",
+        sasul: "준비 중입니다.",
+        puri: "준비 중입니다."
+      },
+      11: {
+        title: "육칠월",
+        performer: "남경우",
+        time: "2:27",
+        desc: "유월 칠월 한여름의 정경과 농촌의 풍요로운 계절을 노래하는 곡. 무더운 여름날의 생기 넘치는 모습을 경쾌하게 담아낸다.",
+        sasul: "준비 중입니다.",
+        puri: "준비 중입니다."
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get('id'));
+    const song = songs[id];
+
+    if (!song) {
+      document.querySelector('.song-header').innerHTML = '<p style="color:var(--muted)">곡 정보를 찾을 수 없습니다.</p>';
+    } else {
+      document.title = song.title + ' — 휘몰이 잡가';
+      document.getElementById('song-num').textContent = id + '.';
+      document.getElementById('song-title').textContent = song.title;
+      document.getElementById('song-performer').textContent = song.performer + ' · ' + song.time;
+
+      document.getElementById('song-desc').textContent = song.desc;
+
+      ['song-sasul', 'song-puri'].forEach(elId => {
+        const key = elId === 'song-sasul' ? 'sasul' : 'puri';
+        const el = document.getElementById(elId);
+        if (song[key] === '준비 중입니다.') {
+          el.innerHTML = '<span class="placeholder">준비 중입니다.</span>';
+        } else {
+          el.textContent = song[key];
+        }
+      });
+    }
+  </script>
+</body>
+</html>
